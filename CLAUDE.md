@@ -48,7 +48,7 @@ url2pdf/
 ## Setup
 
 ```bash
-git clone <repo-url> URL2PDF
+git clone https://github.com/jidechao/URL-TO-PDF.git URL2PDF
 cd URL2PDF
 python -m venv .venv
 # Windows:

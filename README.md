@@ -18,7 +18,7 @@ URL 转 PDF 工具，支持 JavaScript 动态渲染，提供两种输出模式�
 ## 安装
 
 ```bash
-git clone <repo-url> URL2PDF
+git clone https://github.com/jidechao/URL-TO-PDF.git URL2PDF
 cd URL2PDF
 python -m venv .venv
 .venv\Scripts\activate  # Linux/macOS: source .venv/bin/activate
