@@ -1,0 +1,22 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "url2pdf"
+version = "0.1.0"
+description = "URL to PDF with dual modes (faithful / clean) and JS dynamic rendering"
+requires-python = ">=3.10"
+dependencies = [
+    "playwright",
+    "trafilatura",
+    "readability-lxml",
+    "lxml",
+    "beautifulsoup4",
+]
+
+[project.scripts]
+url2pdf = "url2pdf.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["url2pdf"]

@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>print trap</title>
+</head>
+<body>
+<h1 id="ti">打印劫持测试页</h1>
+<div id="content">正文内容，打印前不应被站点脚本改动。</div>
+<script>
+// Mimics gov.cn's trs_forPrintJS.js: sites bind beforeprint and restructure
+// the DOM for their own print flow. url2pdf's faithful mode must block this.
+window.__beforeprintFired = false;
+window.addEventListener('beforeprint', function () {
+  window.__beforeprintFired = true;
+  document.getElementById('content').style.display = 'none';
+});
+</script>
+</body>
+</html>
