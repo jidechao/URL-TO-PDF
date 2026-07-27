@@ -5,7 +5,7 @@ URL 转 PDF 工具，支持 JavaScript 动态渲染，提供两种输出模式�
 ## 核心特性
 
 - **双模式输出**
-  - `faithful`（高保真）：所见即所得，保留原始页面布局、样式、配色
+  - `faithful`（高保真）：所见即所得，保留原始页面布局、样式、配色；纸张宽度匹配桌面视口（默认 1920px），不会因 A4 宽度触发移动端响应式布局
   - `clean`（清洁）：自动提取正文，去除导航栏/广告/评论等噪声，套用统一排版
   - `auto`（默认）：自动判断页面类型，文章页走 clean，非文章页走 faithful
 - **JS 动态渲染**：完整支持 React / Vue / Next.js / Nuxt 等 SPA 框架
@@ -98,6 +98,10 @@ await convert(
 
 **beforeprint 事件拦截**：部分站点（如 gov.cn）在 beforeprint 回调中重构 DOM（压缩 header、克隆内容、固定像素宽度），导致 page.pdf 输出重复或错乱。在页面脚本执行前注入 stopImmediatePropagation 拦截该事件。
 
+**纸张宽度匹配视口**：Chromium 的 page.pdf 按纸张宽度而非浏览器视口布局。A4（210mm 减边距约 680px）低于 768px 响应式断点，网站会切换成移动端布局（导航栏折叠、多列堆叠）。faithful 模式把纸张宽度设为视口宽度（保持 A4 的 210:297 比例），确保按桌面端布局渲染。
+
+**吸顶导航还原**：自动滚动到底部会触发 sticky-on-scroll 导航（滚动时加 fixed 类悬浮），打印时遮盖页面头部。滚动结束后先回到页面顶部让导航恢复文档流位置；对始终 fixed 的元素，打印前统一转为 absolute，避免 Chromium 把悬浮元素重复输出到每一页造成遮盖（元素保持可见，不删除任何内容）。
+
 **Canvas/WebGL 截图降级**：page.pdf 对复杂 Canvas/WebGL 矢量化效果差，输出过小（小于 5KB）时自动降级为全页截图拼 PDF。
 
 ## 项目结构
@@ -113,7 +117,7 @@ url2pdf/
 └── __main__.py        # CLI 入口
 tests/
 ├── test_pipeline.py   # 单元 + 端到端测试
-└── fixtures/          # article.html / landing.html
+└── fixtures/          # article.html / landing.html / printtrap.html
 ```
 
 ## 运行测试
