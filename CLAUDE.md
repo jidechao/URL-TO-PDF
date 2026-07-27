@@ -89,7 +89,7 @@ asyncio.run(main())
 - Prefer `snake_case`.
 - Use the `logging` module; avoid `print()` in library code.
 - Keep changes surgical: match existing quote style and formatting within a file; do not mass-reformat unrelated code.
-- No project-level formatter/linter config is currently defined. If you add one, pin dev dependencies and keep formatting changes in a separate commit.
+- Lint with `ruff check`; the rule set is pinned in `pyproject.toml` (E4/E7/E9/F) so results don't depend on the installed ruff version. The broad `except Exception` boundaries around third-party HTML parsers and best-effort page waits are deliberate — don't "fix" them to satisfy stricter rules.
 
 ## Important Implementation Details
 

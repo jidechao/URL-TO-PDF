@@ -25,3 +25,10 @@ url2pdf = "url2pdf.__main__:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["url2pdf"]
+
+# Pin the rule set explicitly: newer ruff releases expanded the defaults
+# (S110/BLE001 etc.), which made CI lint diverge from older local installs.
+# The broad `except Exception` boundaries around third-party HTML parsers
+# (trafilatura/readability) and best-effort page waits are deliberate.
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
