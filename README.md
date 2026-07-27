@@ -132,7 +132,6 @@ tests/
 - trafilatura
 - readability-lxml
 - lxml
-- beautifulsoup4
 
 Python >= 3.10。
 

@@ -3,7 +3,7 @@ from __future__ import annotations
 import asyncio
 from contextlib import asynccontextmanager
 
-from playwright.async_api import Browser, Page, async_playwright
+from playwright.async_api import Browser, async_playwright
 
 # Minimal stealth: remove the webdriver flag. Realistic UA + viewport set per context.
 _STEALTH_JS = "Object.defineProperty(navigator,'webdriver',{get:()=>undefined});"

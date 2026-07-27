@@ -12,7 +12,12 @@ dependencies = [
     "trafilatura",
     "readability-lxml",
     "lxml",
-    "beautifulsoup4",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
 ]
 
 [project.scripts]
